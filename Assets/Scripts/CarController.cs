@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class NewBehaviourScript : MonoBehaviour
 {
 
@@ -25,12 +26,14 @@ public class NewBehaviourScript : MonoBehaviour
     [SerializeField] private float speed = 50f;
     [SerializeField] private float steerSpeed = 30f;
     [SerializeField] private float maxSteerAngle = 30f;
+    [SerializeField] private Vector3 centerOfMass;
     private float _moveInput;
     private float _steerInput;
     // Start is called before the first frame update
     void Start()
     {
-
+        var rb = GetComponent<Rigidbody>();
+        rb.centerOfMass = centerOfMass;
     }
 
     // Update is called once per frame
