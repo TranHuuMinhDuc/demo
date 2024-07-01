@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Mirror;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -11,15 +12,15 @@ public class SpawnObstacle : MonoBehaviour
     private float _timer;
     private void Update()
     {
-        _timer += Time.deltaTime;
-        if (_timer >= spawnInterval)
-        {
-            _timer = 0;
-            Spawn();
-        }
+        //_timer += Time.deltaTime;
+        //if (_timer >= spawnInterval)
+        //{
+        //    _timer = 0;
+        //    Spawn();
+        //}
     }
 
-    private void Spawn()
+    public void Spawn()
     {
         if(!ObjectBool.Instance.CanSpawn()) return;
         var obj = ObjectBool.Instance.PickOne(transform);
@@ -27,6 +28,7 @@ public class SpawnObstacle : MonoBehaviour
         pos.y = Mathf.Abs(pos.y);
         obj.transform.position = pos;
         obj.SetActive(true);
+        NetworkServer.Spawn(obj);
     }
    
 }
